@@ -16,7 +16,7 @@ class user extends Component {
 
         this.addChat = this.addChat.bind(this)
 
-        // console.log('from constructor', props)
+
     }
 
 
@@ -25,11 +25,6 @@ class user extends Component {
 
         let name = this.state.name;
         let message = this.state.message;
-
-        console.log('from add chat: ', this.props.firebase.db)
-        console.log('from add chat: ', this.props.firebase.db.collection('users').doc().set({
-            name: name,
-        }))
 
         if (name === "" || message === "") {
             alert('Please enter input')
@@ -72,8 +67,6 @@ class user extends Component {
     render() {
         return (
             <div>
-
-
                 <h1>Users Chats</h1>
                 {this.state.isLoading ? (<div>Loading..</div>) : (
                     this.state.savedData.map(data => {
