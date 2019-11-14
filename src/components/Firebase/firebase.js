@@ -1,6 +1,8 @@
-// import firebase from 'firebase';
 import app from 'firebase/app';
+import firestore from 'firebase/firestore';
 import 'firebase/auth';
+import 'firebase/database'
+import firebase from 'firebase';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCmROTdKoTB9ifNo8h4xC7_uZ_yEHv2eOA",
@@ -13,13 +15,15 @@ const firebaseConfig = {
     measurementId: "G-NBQCVRRBPL"
 };
 // Initialize Firebase
-// export const Firebase = firebase.initializeApp(firebaseConfig);
+// export const Init = firebase.initializeApp(firebaseConfig);
 
 class Firebase {
     constructor() {
         app.initializeApp(firebaseConfig);
 
         this.auth = app.auth();
+        this.db = app.firestore()
+
     }
 
     // *** Auth API ***
@@ -35,9 +39,12 @@ class Firebase {
     doPasswordUpdate = password =>
         this.auth.currentUser.updatePassword(password);
 
+    doAddChat = () => this.firestore()
+
+
 }
 export default Firebase;
 
-// export const db = Firebase.firestore();
+// export const db = Init.firestore();
 
 

@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { db } from '../firebase';
+import { withFirebase } from '../components/Firebase';
 import './style.css';
-import { Link } from 'react-router-dom';
-
-
 
 
 class user extends Component {
@@ -29,7 +26,7 @@ class user extends Component {
         if (name === "" || message === "") {
             alert('Please enter input')
         } else {
-            db.collection("users").doc().set({
+            this.props.firebase.doAddChat().collection("users").doc().set({
                 name: name,
                 message: message
             })
@@ -51,7 +48,7 @@ class user extends Component {
     }
 
     componentDidMount() {
-        db.collection('users')
+        this.props.firebase.doAddChat().collection('users')
             .onSnapshot(querySanpshot => {
                 const data = querySanpshot.docs.map(doc => doc.data());
                 this.setState({
@@ -100,4 +97,4 @@ class user extends Component {
 
 }
 
-export default user;
+export default withFirebase(user);

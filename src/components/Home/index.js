@@ -1,8 +1,9 @@
 import React from 'react';
+import Chats from '../Chats/index';
 
 const Home = () => (
     <div>
-        <h1>App</h1>
+        <Chats />
     </div>
 );
 export default Home;
