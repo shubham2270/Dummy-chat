@@ -1,8 +1,8 @@
 import app from 'firebase/app';
-import firestore from 'firebase/firestore';
+import firestore from 'firebase'
 import 'firebase/auth';
 import 'firebase/database'
-import firebase from 'firebase';
+import '@firebase/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyCmROTdKoTB9ifNo8h4xC7_uZ_yEHv2eOA",
@@ -39,7 +39,7 @@ class Firebase {
     doPasswordUpdate = password =>
         this.auth.currentUser.updatePassword(password);
 
-    doAddChat = () => this.firestore()
+    doAddChat = () => this.db.firestore()
 
 
 }

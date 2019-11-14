@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withFirebase } from '../Firebase';
 import './style.css';
-import db from '../Firebase/firebase'
 
 
 class user extends Component {
@@ -23,25 +22,29 @@ class user extends Component {
 
     // Adds user name and chat to db
     addChat() {
-        console.log('from add chat: ', this.props.firebase.doAddChat)
-        console.log('from add chat: ', this.props.firebase.doSignOut)
+
         let name = this.state.name;
         let message = this.state.message;
+
+        console.log('from add chat: ', this.props.firebase.db)
+        console.log('from add chat: ', this.props.firebase.db.collection('users').doc().set({
+            name: name,
+        }))
 
         if (name === "" || message === "") {
             alert('Please enter input')
         } else {
-            console.log('from add chat: ', this.props.firebase)
-            // this.props.firebase.doAddChat.collection("users").doc().set({
-            //     name: name,
-            //     message: message
-            // })
-            //     .then(function () {
-            //         console.log("Document successfully written!");
-            //     })
-            //     .catch(function (error) {
-            //         console.error("Error writing document: ", error);
-            //     });
+
+            this.props.firebase.db.collection("users").doc().set({
+                name: name,
+                message: message
+            })
+                .then(function () {
+                    console.log("Document successfully written!");
+                })
+                .catch(function (error) {
+                    console.error("Error writing document: ", error);
+                });
         }
 
 
@@ -54,7 +57,7 @@ class user extends Component {
     }
 
     componentDidMount() {
-        db.collection('users')
+        this.props.firebase.db.collection('users')
             .onSnapshot(querySanpshot => {
                 const data = querySanpshot.docs.map(doc => doc.data());
                 this.setState({
